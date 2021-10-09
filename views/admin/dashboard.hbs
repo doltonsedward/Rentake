@@ -1,0 +1,19 @@
+{{> header}}
+
+{{#if message}}
+  <div class="alert alert-{{message.type}}" role="alert">
+    {{message.message}}
+  </div>
+{{/if}}
+
+
+<div class="container">
+    {{> sidebar}}
+  
+    <div class="in-container__right">
+    </div>
+    <button class="btn-nav" onclick="openNav()">Nav</button>
+</div>
+
+
+{{> footer}}

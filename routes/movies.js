@@ -8,23 +8,16 @@ router.get('/detail', function(req, res) {
     dbConnection.getConnection((err, conn) => {
         if (err) throw err
 
+        // need debugging
         conn.query(query, (err, results) => {
             if (err) throw err
 
             const movies = []
             for (let result of results) {
-            movies.push({...result})
+                movies.push({...result})
             }
 
             res.render('movies/movie', {title: 'Movies', isLogin: req.session.isLogin, user: req.session.user})
-           
-            // send static data 
-            // res.render('movies/movie', {title: 'Movies', isLogin: req.session.isLogin, user: req.session.user, file: {
-            //     imgProfile: site + 'static/img/profile1.jpg',
-            //     style: site + 'static/css/style.css',
-            //     styleShortcut: site + 'static/css/shortcut.css',
-            //     styleResponsif: site + 'static/css/responsif.css'
-            // }})
         })
 
         conn.release()
@@ -34,7 +27,7 @@ router.get('/detail', function(req, res) {
 router.get('/search', function(req, res) {
     const {searchInput} = req.query 
     const query = `
-    SELECT tb_movie.type_id, tb_type.type_name, tb_movie.id, tb_movie.name, tb_movie.image
+    SELECT tb_movie.type_id, tb_type.type_name, tb_movie.id, tb_movie.movie_name, tb_movie.image
     FROM tb_type INNER JOIN tb_movie
     ON tb_type.id = tb_movie.type_id
     WHERE name LIKE ?
@@ -78,6 +71,45 @@ router.post('/payment', function(req, res) {
             }
 
             res.redirect('/cart')
+        })
+
+        conn.release()
+    })
+})
+
+router.get('/fav', function(req, res) {
+    const {name} = req.session.user 
+    const query = `
+    SELECT tb_user.name, tb_movie.id, tb_movie.movie_name, tb_movie.image
+    FROM tb_user INNER JOIN tb_movie
+    ON tb_user.id = tb_movie.favorite_user
+    WHERE tb_user.name LIKE ?
+    `
+
+    dbConnection.getConnection((err, conn) => {
+        if (err) throw err
+
+        conn.query(query, [`${name}%`], (err, results) => {
+            if (err) throw err
+
+            const favorites = []
+            for (let result of results) {
+                favorites.push({...result})
+            }
+
+            req.session.isBtnActive = {
+                home: 'active',
+                favorite: 'not-active',
+                watchList: 'not-active',
+                cart: 'not-active',
+        
+                friends: 'not-active',
+                parties: 'not-active',
+                setting: 'not-active'
+            }
+
+            console.log(favorites)
+            res.render('movies/fav', {title: 'Movissses', isLogin: req.session.isLogin, user: req.session.user, isBtnActive: req.session.isBtnActive, favorites})
         })
 
         conn.release()
@@ -157,7 +189,7 @@ router.get('/detail/:id', function(req, res) {
     const {id} = req.params
 
     const query = `
-    SELECT tb_movie.id, tb_movie.name, tb_type.type_name, tb_movie.image, tb_movie.movie_hour, tb_movie.content
+    SELECT tb_movie.id, tb_movie.movie_name, tb_type.type_name, tb_movie.image, tb_movie.movie_hour, tb_movie.content
     FROM tb_type INNER JOIN tb_movie
     ON tb_type.id = tb_movie.type_id
     WHERE tb_movie.id = ?;

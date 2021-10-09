@@ -1,7 +1,7 @@
 {{> header}}
 
 <div class="container">
-    {{> sidebar-admin}}
+    {{> sidebar}}
   
     <div class="in-container__right">
       <div class="heading-container d-flex-responsif">
@@ -14,7 +14,7 @@
             <i class="fas fa-bell"></i>
             <i class="fas fa-message"></i>
             <div class="account d-flex align-center">
-              <img class="profile_account" src="static/img/profile1.jpg" alt="profile account">
+              <img class="profile_account" src="/static/img/profile1.jpg" alt="profile account">
               <div class="about_account">
                 <p class="title_of_about-account">{{user.name}}</p>
                 <p class="subtitle">Dancer</p>
@@ -28,7 +28,7 @@
       <div class="main">
   
         <div class="head-of-main">
-          <div class="wrapper-jumbotron d-flex-vertical" style="--bg-index-jumbotron: url('/uploads/{{movies.0.image}}')">
+          <div class="wrapper-jumbotron d-flex-vertical">
             <div class="section_one d-flex">
               <div class="episode">
                 <p>10 episode</p>
@@ -38,13 +38,13 @@
               </div>
             </div>
             <div class="section_two">
-              <h1 class="title">{{movies.0.movie_name}}</h1>
-              <button class="btn btn-theme"><a href="/movies/detail/{{movies.0.id}}">Watch</a></button>
+              <h1 class="title">The Witcher</h1>
+              <button class="btn btn-theme">Watch</button>
               <button class="btn btn-second">+</button>
             </div>
           </div>
           <br>
-          {{#if movies}}
+          {{#if favorites}}
             <div class="parties have-loader">
               <div class="loading">
                 <span style="--i:1.5;"></span>
@@ -53,7 +53,7 @@
               </div>
               <h2>Parties</h2>
               <ul class="list-parties d-flex-responsif">
-                {{#each movies}}
+                {{#each favorites}}
                   <li class="d-flex-vertical">
                     <a href="/movies/detail/{{this.id}}">
                       <div class="header d-flex-horizontal">
