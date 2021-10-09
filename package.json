@@ -1,0 +1,26 @@
+{
+  "name": "latihan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch .",
+    "build-css": "tailwindcss build public/stylesheets/index.css -i public/stylesheets/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.2",
+    "hbs": "^4.1.2",
+    "tailwindcss": "^2.2.16"
+  },
+  "devDependencies": {
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.13"
+  }
+}
