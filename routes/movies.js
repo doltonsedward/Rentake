@@ -206,7 +206,7 @@ router.get('/detail/:id', function(req, res) {
                 movies.push({...result})
             }
 
-            res.render('movies/detail-movie', {title: `Detail film - ${movies[0].name}`, isLogin: req.session.isLogin, user: req.session.user, movies})
+            res.render('movies/detail-movie', {title: `Detail film - ${movies[0].movie_name}`, isLogin: req.session.isLogin, user: req.session.user, movies})
         })
 
         conn.release()

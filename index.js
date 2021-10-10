@@ -9,6 +9,7 @@ const hbs = require('hbs')
 
 const authRoute = require('./routes/auth')
 const movieRoute = require('./routes/movies')
+const adminRoute = require('./routes/admin')
 
 const dbConnection = require('./connection/db')
 
@@ -82,9 +83,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', authRoute)
-
-// sempat ngestuck di sini karena salah fokus
 app.use('/movies', movieRoute)
+app.use('/dashboard', adminRoute)
 
 const server = http.createServer(app)
 const port = 5000

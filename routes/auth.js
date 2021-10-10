@@ -3,7 +3,6 @@ const router = require('express').Router()
 
 // import bcrypt for password hashing
 const bcrypt = require('bcrypt') 
-const { route } = require('./movies')
 
 router.get('/login', function(req, res) {
     res.render('auth/login', { title: 'Login', isLogin: req.session.isLogin})
@@ -108,7 +107,7 @@ router.post('/register', function(req, res) {
 
 router.post('/dashboard/login', function(req, res) {
     const { email, password } = req.body
-    const query = 'SELECT id, name, email, password, user_status FROM tb_user WHERE email= ?'
+    const query = 'SELECT id, name, email, password, user_status, user_status FROM tb_user WHERE email= ?'
 
     if (email == '' || password == '') {
         req.session.message = {
@@ -139,12 +138,22 @@ router.post('/dashboard/login', function(req, res) {
 
                 return res.redirect('/dashboard/login')
             } else {
+                if (!results[0].user_status == 1) {
+                    req.session.message = {
+                        type: 'wrong',
+                        message: 'You are not admin!'
+                    }
+
+                    return res.redirect('/dashboard/login')
+                }
+
                 req.session.message = {
                     type: 'success',
                     message: 'Login successful'
                 }
 
                 req.session.isLogin = true
+                req.session.isAdmin = true
                 req.session.user = {
                     id: results[0].id,
                     email: results[0].email,
@@ -175,8 +184,15 @@ router.get('/dashboard', function(req, res) {
             for (let result of results) {
                 users.push({...result})
             }
+
+            const admins = []
+            for (let result of results) {
+                if (result.user_status === 1) {
+                    admins.push({...result})
+                }
+            }
             
-            res.render('admin/dashboard', { title: 'Welcome admin', isLogin: req.session.isLogin, users})
+            res.render('admin/dashboard', { title: 'Welcome admin', isLogin: req.session.isLogin, users, admins})
         })
 
         conn.release()

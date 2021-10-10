@@ -336,6 +336,43 @@ a {
 
 /* close */
 
+/* table */
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+/* close */
+
+/* input file */
+.drop-your-file {
+    width: 200px;
+    max-width: 100%;
+    display: block;
+    padding: 50px;
+    position: relative;
+    border: 5px dotted lightblue;
+}
+.drop-your-file .inputFile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+}
+/* tutup */
+
 
 @media (max-width: 800px) {
     .in-container__left {

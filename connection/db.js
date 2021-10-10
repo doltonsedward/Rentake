@@ -5,7 +5,8 @@ const connectionPool = mysql.createPool({
     user: 'root',
     password: null,
     database: 'db_ticket',
-    connectionLimit: 5
+    connectionLimit: 5,
+    multipleStatements: true
 })
 
 module.exports = connectionPool
