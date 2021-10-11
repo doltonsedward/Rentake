@@ -1,4 +1,11 @@
 /* session container left */
+.logo a {
+    font-family: 'TimeBurner';
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
 .in-container__left {
     padding: 0;
     position: fixed;

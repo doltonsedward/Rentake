@@ -1,9 +1,11 @@
 const dbConnection = require('../connection/db')
 const router = require('express').Router()
-const uploadFile = require("../middlewares/uploadFile");
+const uploadFile = require("../middlewares/uploadFile")
+const path = require('path')
+const fs = require('fs')
 
 router.get('/movies', function(req, res) {
-    const query = "SELECT * FROM tb_movie ORDER BY created_at DESC LIMIT 10"
+    const query = "SELECT * FROM tb_movie ORDER BY updated_at DESC LIMIT 10"
 
     if (!req.session.isAdmin) {
         return res.redirect('/dashboard/login')
@@ -42,19 +44,83 @@ router.post('/movies', uploadFile("image"), function(req, res) {
 
         conn.query(query, [genre, name, movieHour, image, content], (err, results) => {
             if (err) throw err
-            
-            console.log(results)
-            // const movies = []
-            // for (let result of results) {
-            //     console.log(result)
-            // }
 
-            res.render('/', { title: 'CRUD Session', isLogin: req.session.isLogin})
+            res.redirect('/')
         })
 
         conn.release()
     })
 })
+
+router.post('/movies/update',  uploadFile("image"), function(req, res) {
+    const {movieId, movieName, movieHour, content} = req.body
+    let image = req.file.filename
+    const query = `
+    UPDATE tb_movie
+    SET movie_name = ?, movie_hour = ?, image = ?, content = ?, updated_at = NULL
+    WHERE id = ?;
+    `
+
+    if (!req.session.isLogin) {
+        return res.redirect('/dashboard/login')
+    }
+
+    dbConnection.getConnection((err, conn) => {
+        if (err) throw err
+
+        conn.query(query, [movieName, movieHour, image, content, movieId], (err, results) => {
+            if (err) throw err
+
+            console.log(results)
+            res.redirect('/dashboard')
+        })
+
+        conn.release()
+    })
+})
+
+router.get('/movies/update/:id', function(req, res) {
+    const {id} = req.params
+    const query = 'SELECT * FROM tb_movie WHERE id = ?'
+
+    dbConnection.getConnection((err, conn) => {
+        if (err) throw err
+
+        conn.query(query, [id], (err, results) => {
+            if (err) throw err
+
+            const movies = []
+            for (let result of results) {
+                movies.push({...result})
+            }
+
+            res.render('admin/update-movies', {title: 'Update movie', isLogin: req.session.isLogin, isAdmin: req.session.isAdmin, user: req.session.user, movies})
+        })
+        
+        conn.release()
+    })
+})
+
+router.get('/movies/delete/:id/:image', function(req, res) {
+    const {id, image} = req.params
+    const query = 'DELETE FROM tb_movie WHERE id = ?'
+
+    dbConnection.getConnection((err, conn) => {
+        if (err) throw err
+
+        conn.query(query, [id], (err, results) => {
+            if (err) throw err
+
+            console.log(results)
+            fs.unlinkSync(path.join(__dirname, `../uploads/${image}`))
+
+            res.redirect('/dashboard/movies')
+        })
+        
+        conn.release()
+    })
+})
+
 
 router.get('/movies/:id', function(req, res) {
     const {id} = req.params
@@ -81,9 +147,7 @@ router.get('/movies/:id', function(req, res) {
                 movies.push({...result})
             }
 
-            console.log(movies)
-
-            res.render('admin/detail-movie', {title: `Detail film - ${movies[0].movie_name}`, isLogin: req.session.isLogin, user: req.session.user, movies})
+            res.render('admin/detail-movie', {title: `Detail film - ${movies[0].movie_name}`, isLogin: req.session.isLogin, isAdmin: req.session.isAdmin, user: req.session.user, movies})
         })
 
         conn.release()

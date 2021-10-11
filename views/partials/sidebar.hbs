@@ -1,6 +1,10 @@
 <div class="in-container__left">
     <div class="heading-container">
-    <div class="logo"><a href="/">Cinematic</a></div>
+    <div class="logo">
+        <a href="/">
+            <img class="logoImg" src="/static/img/favicon.png" alt="">Rentake
+        </a>
+        </div>
     </div>
     <div class="main">
         <div class="section-one__main">
@@ -8,10 +12,12 @@
             <p class="title_navbar">Menu</p>
             <ul>
                 <li class="{{isBtnActive.home}}"><i class="fas fa-home"></i><a href="/"> Home</a></li>
-                
                 <li class="{{isBtnActive.favorite}}"><i class="fas fa-heart"></i><a href="/movies/fav">Favorite</a></li>
-                <li class="{{isBtnActive.watchList}}"><i class="fas fa-th-list"></i><a href="/watchlist">Watchlist</a></li>
+                {{!-- <li class="{{isBtnActive.watchList}}"><i class="fas fa-th-list"></i><a href="/watchlist">Watchlist</a></li> --}}
                 <li class="{{isBtnActive.cart}}"><i class="fas fa-shopping-cart"></i><a href="/movies/cart">Cart</a></li>
+                {{#if isAdmin}}
+                <li class="{{isBtnActive.cart}}"><i class="fas fa-column"></i><a href="/dashboard/movies">Dashboard</a></li>
+                {{/if}}
             </ul>
             <br>
             <p class="title_navbar">Social</p>

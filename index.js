@@ -23,7 +23,7 @@ app.set("views", path.join(__dirname, "views"))
 
 app.set("view engine", "hbs")
 
-hbs.registerPartials(path.join(__dirname, 'views/partials'))
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
 // user session
 app.use(
@@ -51,7 +51,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    const query = 'SELECT * FROM tb_movie ORDER BY created_at DESC'
+    const query = 'SELECT * FROM tb_movie ORDER BY updated_at DESC'
 
     dbConnection.getConnection((err, conn) => {
       if (err) throw err
@@ -75,7 +75,8 @@ app.get('/', (req, res) => {
           setting: 'not-active'
         }
         
-        res.render("index", {title: 'Home Page', isLogin: req.session.isLogin, user: req.session.user, isBtnActive: req.session.isBtnActive, movies})
+        // read n take
+        res.render("index", {title: 'Rentake - Where the movie started', isLogin: req.session.isLogin, user: req.session.user, isBtnActive: req.session.isBtnActive, movies})
       })
 
       conn.release()

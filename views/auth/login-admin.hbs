@@ -1,7 +1,7 @@
 {{> header}}
 
 {{#if message}}
-  <div class="alert alert-{{message.type}}" role="alert">
+  <div class="alert alert-{{message.type}}">
     {{message.message}}
   </div>
 {{/if}}
@@ -14,7 +14,7 @@
         <input type="password" name="password" placeholder="Input your password..">
         <button type="submit" class="btn btn-submit">Login</button>
         <br>
-        <p>don't have an account? <a href="./register" class="color-primary">register</a></p>
+        <p class="text-center">don't have an account? <a href="./register" class="color-primary">register</a></p>
     </form>
 </div>
 

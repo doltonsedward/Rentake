@@ -1,4 +1,5 @@
 {{> header}}
+{{> head}}
 
 <div class="container">
     {{> sidebar}}
@@ -51,8 +52,8 @@
                 <span style="--i:3.5;"></span>
                 <span style="--i:6.5;"></span>
               </div>
-              <h2>Parties</h2>
-              <ul class="list-parties d-flex-responsif">
+              <h2>Movies</h2>
+              <ul class="list-parties">
                 {{#each movies}}
                   <li class="d-flex-vertical">
                     <a href="/movies/detail/{{this.id}}">

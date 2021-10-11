@@ -40,10 +40,25 @@
                   <p>Movie hour: {{movies.0.movie_hour}}</p>
                 </div>
                 <br>
-                <button class="btn-update">Update</button>
-                <br>
-                <button class="btn-delete">Delete</button>
+                <div class="d-flex">
+                  <button class="btn btn-update mr-l"><a href="/dashboard/movies/update/{{movies.0.id}}">Update</a></button>
+                  <button class="btn btn-delete"><a href="/dashboard/movies/delete/{{movies.0.id}}/{{movies.0.image}}">Delete</a></button>
+                </div>
               </div>
+              {{!-- <form action="/dashboard/movies/{{movies.0.id}}">
+                <label>
+                  <input type="text" name="movieName">
+                </label>
+                <label>
+                  <input type="text" name="movieName">
+                </label>
+                <label>
+                  <input type="text" name="movieName">
+                </label>
+                <label>
+                  <input type="text" name="movieName">
+                </label>
+              </form> --}}
           </div>
           <br>
           

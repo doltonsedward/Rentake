@@ -43,6 +43,7 @@ router.post('/login', function(req, res) {
         conn.query(query, [email], (err, results) => {
             if (err) throw err
 
+            // need fixed
             const isMatch = bcrypt.compareSync(password, results[0].password)
             if (!isMatch) {
                 req.session.message = {
@@ -169,7 +170,10 @@ router.post('/dashboard/login', function(req, res) {
 })
 
 router.get('/dashboard', function(req, res) {
-    const query = "SELECT * FROM tb_user ORDER BY created_at DESC"
+    const query = `
+    SELECT * FROM tb_user ORDER BY created_at DESC;
+    SELECT movie_name FROM tb_movie;
+    `
 
     if (!req.session.isLogin) {
         return res.redirect('/dashboard/login')
@@ -179,20 +183,32 @@ router.get('/dashboard', function(req, res) {
         if (err) throw err
 
         conn.query(query, (err, results) => {
+            if (err) throw err
 
             const users = []
-            for (let result of results) {
+            for (let result of results[0]) {
                 users.push({...result})
             }
 
             const admins = []
-            for (let result of results) {
+            for (let result of results[0]) {
                 if (result.user_status === 1) {
                     admins.push({...result})
                 }
             }
             
-            res.render('admin/dashboard', { title: 'Welcome admin', isLogin: req.session.isLogin, users, admins})
+            const allUser = results[0].length
+            const allMovie = results[1].length
+            
+            res.render('admin/dashboard', { 
+                title: 'Welcome admin', 
+                isLogin: req.session.isLogin, 
+                users, 
+                admins, 
+                allUser, 
+                allMovie
+                }
+            )
         })
 
         conn.release()

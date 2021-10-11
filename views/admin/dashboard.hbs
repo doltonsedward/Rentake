@@ -8,38 +8,59 @@
 
 
 <div class="container">
-    <div class="in-container__left">
+    <div class="in-container__left dashboard text-center">
         <div class="heading-container">
-        <div class="logo"><a href="/">Dashboard</a></div>
+        <div class="logo dashboard">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         </div>
         <div class="main">
             <div class="section-one__main">
             <nav class="navbar">
                 <p class="title_navbar">Menu</p>
                 <ul>
-                    <li class="{{isBtnActive.home}}"><i class="fas fa-home"></i><a href="/"> Home</a></li>
-                    <li class="{{isBtnActive.favorite}}"><i class="fas fa-heart"></i><a href="/movies/fav">Dashboard</a></li>
-                    <li class="{{isBtnActive.watchList}}"><i class="fas fa-th-list"></i><a href="/dashboard/movies">Movies</a></li>
-                    <li class="{{isBtnActive.cart}}"><i class="fas fa-shopping-cart"></i><a href="/movies/cart">Cart</a></li>
+                    <li><a class="text-center" href="/"><i class="fas fa-home"></i></a></li>
+                    <li class="active"><a class="text-center" href="/dashboard"><i class="fas fa-columns"></i></a></li>
+                    <li><a class="text-center" href="/dashboard/movies"><i class="fas fa-th-list"></i></a></li>
+                    <li><a class="text-center" href="/movies/cart"><i class="fas fa-shopping-cart"></i></a></li>
                 </ul>
                 <br>
                 <p class="title_navbar">Social</p>
                 <ul>
-                    <li class="{{isBtnActive.friends}}"><i class="fas fa-user"></i><a href="/friends">Friends</a></li>
-                    <li class="{{isBtnActive.parties}}"><i class="fas fa-gift"></i><a href="/parties">Parties</a></li>
+                    <li><a href="/friends"><i class="fas fa-user"></i></a></li>
+                    <li><a href="/parties"><i class="fas fa-gift"></i></a></li>
                 </ul>
                 <br>
                 <p class="title_navbar">General</p>
                 <ul>
-                    <li class="{{isBtnActive.setting}}"><i class="fas fa-cog"></i><a href="/movies/setting">Setting</a></li>
-                    <li><i class="fas fa-sign-out-alt"></i><a href="/logout">Log out</a></li>
+                    <li><a href="/movies/setting"><i class="fas fa-cog"></i></a></li>
+                    <li><a href="/logout"><i class="fas fa-sign-out-alt"></i></a></li>
                 </ul>
             </nav>
             </div>
         </div>
     </div>
   
-    <div class="in-container__right">
+    <div class="in-container__right dashboard">
+        <h2>Dashboard</h2>
+        <div class="d-flex">
+            <div class="hero-image_dashboard">
+                <div class="box-hero dashboard">
+                    <i class="fas fa-users"></i>
+                    <p class="about">All user</p>
+                    <p>{{allUser}}</p>
+                </div>
+            </div>
+            <div class="hero-image_dashboard">
+                <div class="box-hero dashboard">
+                    <i class="fas fa-ticket-alt"></i>
+                    <p class="about">All movie</p>
+                    <p>{{allMovie}}</p>
+                </div>
+            </div>
+        </div>
         <div class="info">
             <div class="info-user">
                 <p>All user</p>
