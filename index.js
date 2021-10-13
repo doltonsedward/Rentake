@@ -9,7 +9,6 @@ const hbs = require('hbs')
 
 const authRoute = require('./routes/auth')
 const movieRoute = require('./routes/movies')
-const adminRoute = require('./routes/admin')
 
 const dbConnection = require('./connection/db')
 
@@ -23,7 +22,7 @@ app.set("views", path.join(__dirname, "views"))
 
 app.set("view engine", "hbs")
 
-hbs.registerPartials(path.join(__dirname, '/views/partials'))
+hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
 // user session
 app.use(
@@ -51,7 +50,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    const query = 'SELECT * FROM tb_movie ORDER BY updated_at DESC'
+    const query = 'SELECT * FROM tb_movie ORDER BY created_at DESC'
 
     dbConnection.getConnection((err, conn) => {
       if (err) throw err
@@ -63,20 +62,8 @@ app.get('/', (req, res) => {
         for (let result of results) {
           movies.push({...result})
         }
-
-        req.session.isBtnActive = {
-          home: 'active',
-          favorite: 'not-active',
-          watchList: 'not-active',
-          cart: 'not-active',
-
-          friends: 'not-active',
-          parties: 'not-active',
-          setting: 'not-active'
-        }
         
-        // read n take
-        res.render("index", {title: 'Rentake - Where the movie started', isLogin: req.session.isLogin, user: req.session.user, isBtnActive: req.session.isBtnActive, movies})
+        res.render("index", {title: 'Home Page', isLogin: req.session.isLogin, user: req.session.user, movies})
       })
 
       conn.release()
@@ -84,8 +71,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', authRoute)
+
+// sempat ngestuck di sini karena salah fokus
 app.use('/movies', movieRoute)
-app.use('/dashboard', adminRoute)
 
 const server = http.createServer(app)
 const port = 5000
