@@ -35,6 +35,6 @@ Things to add
 
 Bug / not normal system
 - Setting cannot be used normally
-- tb_payment cannot be user normally
+- tb_payment cannot be used normally
 
-date now: Oct 11 2021
+date now: Oct 13 2021
