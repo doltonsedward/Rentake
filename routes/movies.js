@@ -17,14 +17,6 @@ router.get('/detail', function(req, res) {
             }
 
             res.render('movies/movie', {title: 'Movies', isLogin: req.session.isLogin, user: req.session.user})
-           
-            // send static data 
-            // res.render('movies/movie', {title: 'Movies', isLogin: req.session.isLogin, user: req.session.user, file: {
-            //     imgProfile: site + 'static/img/profile1.jpg',
-            //     style: site + 'static/css/style.css',
-            //     styleShortcut: site + 'static/css/shortcut.css',
-            //     styleResponsif: site + 'static/css/responsif.css'
-            // }})
         })
 
         conn.release()
@@ -146,7 +138,7 @@ router.get('/detail/:id', function(req, res) {
     const {id} = req.params
 
     const query = `
-    SELECT tb_movie.id, tb_movie.name, tb_type.type_name, tb_movie.image, tb_movie.movie_hour, tb_movie.content
+    SELECT tb_movie.id, tb_movie.movie_name, tb_type.type_name, tb_movie.image, tb_movie.movie_hour, tb_movie.content
     FROM tb_type INNER JOIN tb_movie
     ON tb_type.id = tb_movie.type_id
     WHERE tb_movie.id = ?;

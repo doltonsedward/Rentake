@@ -12,7 +12,6 @@ const movieRoute = require('./routes/movies')
 
 const dbConnection = require('./connection/db')
 
-// app.use('/static', express.static(path.join(__dirname, '/dpublic')))
 app.use("/static", express.static(path.join(__dirname, "/public")))
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 
