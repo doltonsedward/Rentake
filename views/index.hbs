@@ -1,6 +1,5 @@
 {{> header}}
 {{> head}}
-
 <div class="container">
     {{> sidebar}}
   
@@ -73,15 +72,9 @@
   
       </div>
     </div>
-    <button class="btn-nav" onclick="openNav()">Nav</button>
+    <button class="btn-nav" onclick="notif('Success', 'You', 'success')">Nav</button>
 </div>
 
 <script src="/static/js/scMovie.js"></script>
-<script>
-  const parties = document.querySelector('.parties')
-  setTimeout(function() {
-    parties.classList.add('end-loader')
-    parties.classList.remove('have-loader')
-  }, 2000)
-</script>
+<script src="/static/js/notif.js"></script>
 {{> footer}}
