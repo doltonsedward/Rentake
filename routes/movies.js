@@ -26,10 +26,10 @@ router.get('/detail', function(req, res) {
 router.get('/search', function(req, res) {
     const {searchInput} = req.query 
     const query = `
-    SELECT tb_movie.type_id, tb_type.type_name, tb_movie.id, tb_movie.name, tb_movie.image
+    SELECT tb_movie.type_id, tb_type.type_name, tb_movie.id, tb_movie.movie_name, tb_movie.image
     FROM tb_type INNER JOIN tb_movie
     ON tb_type.id = tb_movie.type_id
-    WHERE name LIKE ?
+    WHERE movie_name LIKE ?
     `
 
     dbConnection.getConnection((err, conn) => {
@@ -94,14 +94,6 @@ router.post('/setting', function(req, res) {
         conn.query(query, [userName, userId], (err, results) => {
             if (err) throw err
 
-            // req.session.user = {
-            //     id: results[0].id,
-            //     email: results[0].email,
-            //     name: results[0].name
-            // }
-
-            console.log(results)
-
             res.redirect('/')
         })
 
@@ -113,23 +105,18 @@ router.post('/ticket', function(req, res) {
     const {moviesId, userId, ticketNumber, dateShow, timeShow, price, venue} = req.body
     const query = `
     INSERT INTO tb_ticket 
-    (movie_id, user_id, ticket_number, date_show, time_show, price, venue, created_at)
+    (movie_id, user_id, ticket_number, date_show, time_show, price, venue)
     VALUES (?,?,?,?,?,?,'')
     `
 
     dbConnection.getConnection((err, conn) => {
         if (err) throw err
 
-        const intMovieId = parseInt(moviesId)
-        const intUserId = parseInt(userId)
-        const intTicketNumber = parseInt(ticketNumber)
-        const doublePrice = parseFloat(price)
-
-        conn.query(query, [intMovieId, intUserId, intTicketNumber, dateShow, timeShow, doublePrice, venue], (err, results) => {
+        conn.query(query, [moviesId, userId, ticketNumber, dateShow, timeShow, price, venue], (err, results) => {
             if (err) throw err
 
             console.log(results)
-            res.render('/')
+            res.redirect('/')
         })
     })
 })
