@@ -33,20 +33,6 @@
     margin: 0 var(--margin-about-mv);
 }
 
-.alert {
-    color: var(--bg-theme);
-    padding: 8px 12px;
-    content: '';
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    z-index: 99;
-    border-radius: var(--border-trendy);
-    animation: alert-show 1s ease forwards;
-}
-
-
 /* section add movie */
 .section-add-movie {
     width: 500px;
@@ -112,18 +98,4 @@
     background-color: var(--bg-theme);
     box-shadow: var(--box-shadow-theme);
 }
-
-
 /* close */
-
-@keyframes alert-show {
-    0% {
-        transform: translateX(100%)
-    }
-    40% {
-        transform: translateX(-10%)
-    }
-    20%, 50%, 80%, 100% {
-        transform: translateX(0)
-    }
-}

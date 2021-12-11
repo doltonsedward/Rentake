@@ -90,7 +90,7 @@ router.post('/payment', function(req, res) {
 
             req.session.message = {
                 type: 'valid',
-                message: 'THank you for buying our ticket'
+                message: 'Thank you for buying our ticket'
             }
 
             res.redirect('/cart')
