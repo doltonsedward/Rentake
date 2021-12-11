@@ -4,6 +4,37 @@
         containerLeft.classList.toggle('active')
     }
 
+    function notif(status, title, message) {
+        switch (status) {
+            case 'error':
+                iziToast.error({
+                    title: title ?? 'Error', 
+                    message: message ?? 'Illegal operation', 
+                    position: 'topRight'
+                });
+                break;
+
+            case 'success':
+                iziToast.success({
+                    title: title ?? 'Error', 
+                    message: message ?? 'Illegal operation', 
+                    position: 'topRight'
+                });
+                break;
+                
+            case 'info':
+                iziToast.info({
+                    title: title ?? 'Error', 
+                    message: message ?? 'Illegal operation', 
+                    position: 'topRight'
+                });
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     const buttonRipple = document.querySelectorAll('.btn-ripple')
     buttonRipple.forEach(btn => {
         btn.addEventListener('click', function(e) {
