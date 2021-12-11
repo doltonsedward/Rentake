@@ -11,7 +11,6 @@ const hbs = require('hbs')
 const authRoute = require('./routes/auth')
 const movieRoute = require('./routes/movies')
 const dashboardRoute = require('./routes/dashboard')
-const responseRoute = require('./routes/response')
 
 const dbConnection = require('./connection/db')
 
@@ -53,7 +52,7 @@ app.get('/', (req, res) => {
     const query = 'SELECT * FROM tb_movie ORDER BY created_at DESC'
 
     dbConnection.getConnection((err, conn) => {
-      if (err) return res.redirect("/response-error/500")
+      if (err) return res.render("response/500")
 
       conn.query(query, (err, results) => {
         if (err) throw err
@@ -74,7 +73,6 @@ app.get('/', (req, res) => {
 app.use('/', authRoute)
 app.use('/movies', movieRoute)
 app.use('/dashboard', dashboardRoute)
-app.use('/response-error', responseRoute)
 
 app.all('*', (req, res) => {
   res.status(404).render('response/400', { title: '404 NOT FOUND'})
@@ -82,6 +80,6 @@ app.all('*', (req, res) => {
 
 const server = http.createServer(app)
 const port = 5000
-server.listen(port, () => {
+server.listen(process.env.PORT || port, () => {
     console.log(`Server sedang berjalan pada http://localhost:${port}`)
 })
