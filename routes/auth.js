@@ -25,12 +25,12 @@ router.post('/login', function(req, res) {
 
     if (email == '' || password == '') {
         req.session.message = {
-            type: 'wrong',
+            type: 'error',
+            title: 'Error',
             message: 'Please fulfill input'
         }
 
-        res.redirect('/login')
-        return
+        return res.redirect('/login')
     }
 
     dbConnection.getConnection((err, conn) => {
@@ -39,10 +39,21 @@ router.post('/login', function(req, res) {
         conn.query(query, [email], (err, results) => {
             if (err) throw err
 
-            const isMatch = bcrypt.compareSync(password, results[0].password)
+            if (!results.length) {
+                req.session.message = {
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Please fulfill input'
+                }
+
+                return res.redirect('/login')
+            }
+
+            const isMatch = bcrypt.compareSync(password, results[0]?.password)
             if (!isMatch) {
                 req.session.message = {
-                    type: 'wrong',
+                    type: 'error',
+                    title: 'Error',
                     message: 'Email or password are incorrect'
                 }
 
@@ -50,6 +61,7 @@ router.post('/login', function(req, res) {
             } else {
                 req.session.message = {
                     type: 'success',
+                    title: 'Success',
                     message: 'Login successful'
                 }
 
@@ -74,7 +86,8 @@ router.post('/register', function(req, res) {
 
     if (name == '' || email == '' || password == '') {
         req.session.message = {
-            type: 'wrong',
+            type: 'error',
+            title: 'Error',
             message: 'Please fulfill input'
         }
 
@@ -90,8 +103,9 @@ router.post('/register', function(req, res) {
             if (err) throw err
 
             req.session.message = {
-                type: 'valid',
-                message: 'register successful'
+                type: 'success',
+                title: 'Success',
+                message: 'Register successful'
             }
 
             res.redirect('/register')
