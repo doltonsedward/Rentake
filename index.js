@@ -23,6 +23,10 @@ app.set("view engine", "hbs")
 
 hbs.registerPartials(path.join(__dirname, 'views/partials'))
 
+// handlebars helper
+hbs.registerHelper('iserror', (value) => value === 'error')
+hbs.registerHelper('issuccess', (value) => value === 'success')
+
 // user session
 app.use(
   session({
