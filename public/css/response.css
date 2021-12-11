@@ -6,10 +6,12 @@
     align-items: center;
 }
 
-.image-not-found__response {
+.image-error__response {
     width: 400px;
     max-width: 90%;
 }
+
+.heading__response { color: var(--primary-color) }
 
 .goback-btn__response {
     padding: 12px 15px;
