@@ -1,0 +1,32 @@
+.form-ticket {
+    padding: 5% 8%;
+    width: 100%;
+    background-color: var(--bg-theme);
+    box-shadow: var(--box-shadow-theme)
+}
+
+.form-ticket input, .form-ticket button { 
+    width: 100%; 
+    margin: 5px 0;
+}
+
+.form-ticket input {
+    padding: 8px 12px;
+    border-radius: var(--border-cool);
+    box-shadow:  var(--box-shadow-theme)
+}
+
+.form-ticket input:focus {
+    box-shadow: inset 10px 10px 15px #d4d5d9,
+    inset -10px -10px 15px #ffffff;
+}
+
+.form-ticket .btn-submit {
+    width: 100%;
+    margin: 40px 0 20px;
+    box-shadow: var(--box-shadow-theme);
+}
+
+.form-ticket button[type="submit"] {
+    margin: 40px 0 10px;
+}
