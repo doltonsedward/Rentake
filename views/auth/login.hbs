@@ -1,11 +1,5 @@
 {{> header}}
 
-{{#if message}}
-  <div class="alert alert-{{message.type}}" role="alert">
-    {{message.message}}
-  </div>
-{{/if}}
-
 <div class="container login-regis">
     <form action="" method="POST" class="form">
         <h2 class="text-center">Login to Rentake</h2>
@@ -18,6 +12,10 @@
     </form>
 </div>
 
-{{!-- <script src="/static/js/notif.js"></script> --}}
 
 {{> footer}}
+{{#if message}}
+  <script>
+    notif("message.type", "Error", "{{message.message}}")
+  </script>
+{{/if}}
