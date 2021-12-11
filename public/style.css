@@ -13,8 +13,10 @@
 @font-face { font-family: 'TimeBurner';src: url(/static/font/TimeBurnerLight.ttf) }
 
 /* change behavior default */
-input { font-size: 15px }
-input, button { font-family: 'Ubuntu', Arial, Helvetica, sans-serif; }
+input, button { 
+    font-size: 16px;
+    font-family: 'Ubuntu', Arial, Helvetica, sans-serif; 
+}
 /* tutup */
 
 .have-loader {
