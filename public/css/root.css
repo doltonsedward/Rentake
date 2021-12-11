@@ -1,0 +1,57 @@
+:root {
+    /* prop */
+    --size-width-left: 250px;
+    --size-width-left-dashboard: 100px;
+
+    --border-trendy: 13px;
+    --border-smooth: 23px;
+    --border-cool: 5px;
+    --border-circle: 50%;
+
+    --borderSmooth: #dddddd;
+
+    /* pallete color */
+    --white: #f9faff;
+    --gray-low: #9aa2a9;
+    --gray: #7a8188;
+    --dark: #2d3436;
+    --dark-red: #b01935;
+    --red: #d8343a;
+    --red-rgba: rgba(216, 52, 58, .4);
+    --gray-smooth: #5e686d;
+    --success: #5cb85c;
+    --gray-low-rgb: rgba(0, 0, 0, .2);
+
+
+    /* color */
+    --smooth-blue: #63a3f7;
+    --blue: #0d6dff;
+    --darkpurple: #1d2130;
+
+    /* theme */
+    --primary-color: var(--red);
+    --primary-color-low: var(--red-rgba);
+    --second-color: var(--gray);
+    --color-text: var(--dark);
+    --title-color: var(--white);
+    --subtitle-color: var(--gray-low);
+
+    --bg-theme: var(--white);
+    --primary-shadow: var(--red);
+    --box-shadow-theme: 10px 10px 15px #d4d5d9,
+    -10px -10px 15px #eaeaee;
+
+    --table-primary: rgb(240, 240, 240);
+
+    --bg-sidebar: rgb(240, 240, 240);
+
+    --btn-theme: var(--primary-color);
+    --btn-second: var(--second-color);
+    --btn-success: var(--success);
+
+    --bg-episode: var(--gray-low-rgb);
+
+    /* shadow */
+    --list-parties-shadow: 20px 20px 60px #d4d5d9,
+    -20px -20px 60px #ffffff;
+}
