@@ -1,4 +1,3 @@
-
 const dbConnection = require('../connection/db')
 const router = require('express').Router()
 
@@ -13,10 +12,35 @@ router.get('/detail', function(req, res) {
 
             const movies = []
             for (let result of results) {
-            movies.push({...result})
+                movies.push({...result})
             }
 
             res.render('movies/movie', {title: 'Movies', isLogin: req.session.isLogin, user: req.session.user})
+        })
+
+        conn.release()
+    })
+})
+
+router.get('/cart', function(req, res) {
+    const query = `
+    SELECT tb_movie.movie_name, tb_ticket.ticket_number, tb_ticket.date_show, tb_ticket.price, tb_ticket.venue
+    FROM tb_movie
+    inner join tb_ticket ON tb_movie.id = tb_ticket.movie_id;
+    `
+
+    dbConnection.getConnection((err, conn) => {
+        if (err) throw err
+
+        conn.query(query, (err, results) => {
+            if (err) throw err
+
+            const infoTicket = []
+            for (let result of results) {
+                infoTicket.push({...result})
+            }
+
+            res.render('movies/cart', { title: 'Cart', isLogin: req.session.isLogin, user: req.session.user, infoTicket })
         })
 
         conn.release()
@@ -115,14 +139,13 @@ router.post('/ticket', function(req, res) {
         conn.query(query, [moviesId, userId, ticketNumber, dateShow, timeShow, price, venue], (err, results) => {
             if (err) throw err
 
-            console.log(results)
             res.redirect('/')
         })
     })
 })
 
 router.get('/detail/:id', function(req, res) {
-    const {id} = req.params
+    const { id } = req.params
 
     const query = `
     SELECT tb_movie.id, tb_movie.movie_name, tb_type.type_name, tb_movie.image, tb_movie.movie_hour, tb_movie.content
