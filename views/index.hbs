@@ -1,31 +1,10 @@
 {{> header}}
-{{> head}}
 
 <div class="container">
     {{> sidebar}}
   
     <div class="in-container__right">
-      <div class="heading-container d-flex-responsif">
-        <form action="/movies/search" class="search-input" method="GET">
-          <i class="fas fa-search"></i>
-          <input type="search" name="searchInput" placeholder="Type to search">
-        </form>
-        <div class="account-detail d-flex align-center">
-          {{#if isLogin}}
-            <i class="fas fa-bell"></i>
-            <i class="fas fa-message"></i>
-            <div class="account d-flex align-center">
-              <img class="profile_account" src="static/img/profile1.jpg" alt="profile account">
-              <div class="about_account">
-                <p class="title_of_about-account">{{user.name}}</p>
-                <p class="subtitle">Dancer</p>
-              </div>
-            </div>
-          {{else}}
-            <a class="btn btn-primary" href="/register">Sign up</a>
-          {{/if}}
-        </div>
-      </div>
+      {{> heading }}
       <div class="main">
   
         <div class="head-of-main">
@@ -40,8 +19,8 @@
             </div>
             <div class="section_two">
               <h1 class="title">{{movies.0.movie_name}}</h1>
-              <button class="btn btn-theme"><a href="/movies/detail/{{movies.0.id}}">Watch</a></button>
-              <button class="btn btn-second">+</button>
+              <button class="btn btn-theme"><a class="btn-ripple" href="/movies/detail/{{movies.0.id}}">Watch</a></button>
+              <button class="btn btn-second btn-ripple">+</button>
             </div>
           </div>
           <br>
