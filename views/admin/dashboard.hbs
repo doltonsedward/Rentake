@@ -1,12 +1,5 @@
 {{> header}}
 
-{{#if message}}
-  <div class="alert alert-{{message.type}}" role="alert">
-    {{message.message}}
-  </div>
-{{/if}}
-
-
 <div class="container">
     <div class="in-container__left dashboard text-center">
         <div class="heading-container">
@@ -100,3 +93,8 @@
 
 
 {{> footer}}
+{{#if message}}
+  <script>
+    notif("{{message.type}}", "{{message.title}}", "{{message.message}}")
+  </script>
+{{/if}}

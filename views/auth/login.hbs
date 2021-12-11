@@ -16,6 +16,6 @@
 {{> footer}}
 {{#if message}}
   <script>
-    notif("message.type", "Error", "{{message.message}}")
+    notif("{{message.type}}", "{{message.title}}", "{{message.message}}")
   </script>
 {{/if}}
