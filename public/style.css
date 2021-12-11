@@ -50,12 +50,6 @@ input, button {
     animation-delay: calc(0.1s * var(--i));
 }
 
-@keyframes bounce {
-    50% {
-        transform: translateY(20px);
-    }
-}
-
 .have-loader .loading span:nth-child(2) {
     margin: 0 20px;
 }
@@ -144,5 +138,11 @@ table {
     .in-container__right { padding-left: 0 }
     .btn-nav { 
         display: block;
+    }
+}
+
+@keyframes bounce {
+    50% {
+        transform: translateY(20px);
     }
 }
