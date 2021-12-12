@@ -42,8 +42,12 @@
     </div>
 </div>
 
-</div>
-
+{{> footer}}
+{{#if message}}
+  <script>
+    notif("{{message.type}}", "{{message.title}}", "{{message.message}}")
+  </script>
+{{/if}}
 
 <script>
   const parties = document.querySelector('.parties')
