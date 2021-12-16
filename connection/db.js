@@ -1,11 +1,7 @@
-const mysql = require('mysql2')
+const mongoose = require('mongoose')
 
-const connectionPool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: null,
-    database: 'db_ticket',
-    connectionLimit: 5
-})
+const URL_DB = process.env.URL_MONGODB || process.env.DEV_URL_MONGODB
 
-module.exports = connectionPool
+mongoose.connect(URL_DB)
+
+module.exports = mongoose
