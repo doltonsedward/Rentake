@@ -1,5 +1,6 @@
 const dbConnection = require('../connection/db')
 const router = require('express').Router()
+const User = require('../models/Movie')
 
 // import bcrypt for password hashing
 const bcrypt = require('bcrypt') 
@@ -19,65 +20,70 @@ router.get('/logout', function(req, res) {
 })
 
 // Login handler
-router.post('/login', function(req, res) {
-    const { email, password } = req.body
-    const query = 'SELECT id, name, email, password FROM tb_user WHERE email= ?'
-
-    if (email == '' || password == '') {
-        req.session.message = {
-            type: 'error',
-            title: 'Error',
-            message: 'Please fulfill input'
-        }
-
-        return res.redirect('/login')
+router.post('/login', async function(req, res) {
+    try {
+        const user = User.find
+    } catch (error) {
+        console.log(error)
     }
+    // const { email, password } = req.body
+    // const query = 'SELECT id, name, email, password FROM tb_user WHERE email= ?'
 
-    dbConnection.getConnection((err, conn) => {
-        if (err) throw err
+    // if (email == '' || password == '') {
+    //     req.session.message = {
+    //         type: 'error',
+    //         title: 'Error',
+    //         message: 'Please fulfill input'
+    //     }
 
-        conn.query(query, [email], (err, results) => {
-            if (err) throw err
+    //     return res.redirect('/login')
+    // }
 
-            if (!results.length) {
-                req.session.message = {
-                    type: 'error',
-                    title: 'Error',
-                    message: 'Please fulfill input'
-                }
+    // dbConnection.getConnection((err, conn) => {
+    //     if (err) throw err
 
-                return res.redirect('/login')
-            }
+    //     conn.query(query, [email], (err, results) => {
+    //         if (err) throw err
 
-            const isMatch = bcrypt.compareSync(password, results[0]?.password)
-            if (!isMatch) {
-                req.session.message = {
-                    type: 'error',
-                    title: 'Error',
-                    message: 'Email or password are incorrect'
-                }
+    //         if (!results.length) {
+    //             req.session.message = {
+    //                 type: 'error',
+    //                 title: 'Error',
+    //                 message: 'Please fulfill input'
+    //             }
 
-                return res.redirect('/login')
-            } else {
-                req.session.message = {
-                    type: 'success',
-                    title: 'Success',
-                    message: 'Login successful'
-                }
+    //             return res.redirect('/login')
+    //         }
 
-                req.session.isLogin = true
-                req.session.user = {
-                    id: results[0].id,
-                    email: results[0].email,
-                    name: results[0].name
-                }
+    //         const isMatch = bcrypt.compareSync(password, results[0]?.password)
+    //         if (!isMatch) {
+    //             req.session.message = {
+    //                 type: 'error',
+    //                 title: 'Error',
+    //                 message: 'Email or password are incorrect'
+    //             }
 
-                return res.redirect('/')
-            }
-        })
+    //             return res.redirect('/login')
+    //         } else {
+    //             req.session.message = {
+    //                 type: 'success',
+    //                 title: 'Success',
+    //                 message: 'Login successful'
+    //             }
 
-        conn.release()
-    })
+    //             req.session.isLogin = true
+    //             req.session.user = {
+    //                 id: results[0].id,
+    //                 email: results[0].email,
+    //                 name: results[0].name
+    //             }
+
+    //             return res.redirect('/')
+    //         }
+    //     })
+
+    //     conn.release()
+    // })
 })
 
 router.post('/register', function(req, res) {
