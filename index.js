@@ -8,12 +8,11 @@ const flash = require('express-flash')
 const app = express()
 const hbs = require('hbs')
 
-// import routes
-const authRoute = require('./routes/auth')
-const movieRoute = require('./routes/movies')
-const dashboardRoute = require('./routes/dashboard')
-
 const dbConnection = require('./connection/db')
+dbConnection.connection.on('error', (err) => {
+  console.log(err)
+  return res.render("response/500")
+})
 
 app.use("/static", express.static(path.join(__dirname, "/public")))
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
@@ -49,35 +48,9 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-    const query = 'SELECT * FROM tb_movie ORDER BY created_at DESC'
-
-    dbConnection.getConnection((err, conn) => {
-      if (err) return res.render("response/500")
-
-      conn.query(query, (err, results) => {
-        if (err) throw err
-        
-        const movies = []
-        for (let result of results) {
-          movies.push({...result})
-        }
-        
-        res.render("index", {title: 'Home Page', isLogin: req.session.isLogin, user: req.session.user, movies})
-      })
-
-      conn.release()
-    })
-})
-
 // use routes
-app.use('/', authRoute)
-app.use('/movies', movieRoute)
-app.use('/dashboard', dashboardRoute)
-
-app.all('*', (req, res) => {
-  res.status(404).render('response/400', { title: '404 NOT FOUND'})
-})
+const routes = require('./routes')
+app.use(routes)
 
 const server = http.createServer(app)
 const port = 5000
